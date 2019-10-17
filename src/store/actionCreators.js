@@ -1,4 +1,5 @@
-import {CHANGE_INPUT,ADD_ITEM,DELETE_ITEM} from './actionTypes'
+import {CHANGE_INPUT,ADD_ITEM,DELETE_ITEM,GET_LIST} from './actionTypes'
+import axios from 'axios'
 
 export const inputAction = (value)=>({
     type:CHANGE_INPUT,
@@ -12,3 +13,15 @@ export const deleteItemAction = (index)=>({
     type:DELETE_ITEM,
     index
 })
+export const getListAction = (data)=>({
+    type:GET_LIST,
+    data
+})
+export const getTodoList = ()=>{
+    return async (dispatch) => {
+        const res = await axios.get('https://www.fastmock.site/mock/af09288136e49cfadaafba2b9c91ad7b/todo/redux')
+        const data = res.data
+        const action =  getListAction(data)
+        dispatch(action)
+    }
+}
